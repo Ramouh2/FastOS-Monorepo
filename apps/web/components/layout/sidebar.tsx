@@ -1,29 +1,36 @@
-const menu = [
-  "Dashboard",
-  "Restaurant",
-  "Produits",
-  "Commandes",
-  "Paiements",
-  "Stock",
-  "Employés",
-  "Analytics",
-  "Paramètres",
+import {
+  LayoutDashboard,
+  Building2,
+  Package,
+  Bot,
+  BarChart3,
+  Settings,
+} from "lucide-react";
+
+const items = [
+  { icon: LayoutDashboard, label: "Dashboard" },
+  { icon: Building2, label: "Businesses" },
+  { icon: Package, label: "Products" },
+  { icon: Bot, label: "AI Agents" },
+  { icon: BarChart3, label: "Analytics" },
+  { icon: Settings, label: "Settings" },
 ];
 
 export function Sidebar() {
   return (
-    <aside className="flex h-screen w-72 flex-col border-r border-neutral-800 bg-neutral-950 p-6">
-      <h1 className="mb-10 text-2xl font-bold text-orange-500">
-        FASTOS
+    <aside className="flex h-screen w-64 flex-col border-r border-neutral-800 bg-slate-900 p-6">
+      <h1 className="mb-8 text-3xl font-bold text-white">
+        FastOS
       </h1>
 
       <nav className="flex flex-col gap-2">
-        {menu.map((item) => (
+        {items.map(({ icon: Icon, label }) => (
           <button
-            key={item}
-            className="rounded-xl px-4 py-3 text-left text-neutral-300 transition hover:bg-neutral-900 hover:text-white"
+            key={label}
+            className="flex items-center gap-3 rounded-xl px-4 py-3 text-left text-slate-300 transition hover:bg-slate-800 hover:text-white"
           >
-            {item}
+            <Icon size={18} />
+            <span>{label}</span>
           </button>
         ))}
       </nav>

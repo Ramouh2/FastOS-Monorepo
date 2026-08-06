@@ -1,6 +1,8 @@
-import { MemoryProductRepository } from "../../ramses/domains/product/memory-product-repository.js";
-import { ProductService } from "../../ramses/domains/product/product-service.js";
-import { CreateProduct } from "../../ramses/application/create-product.js";
+import {
+  MemoryProductRepository,
+  ProductService,
+  CreateProduct,
+} from "@fastos/core";
 
 const repository = new MemoryProductRepository();
 
