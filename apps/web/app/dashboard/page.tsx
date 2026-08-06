@@ -1,47 +1,70 @@
 import { AppLayout } from "../../components/layout/app-layout";
+import {
+  DollarSign,
+  ShoppingBag,
+  Package,
+  Bot,
+} from "lucide-react";
+
+const cards = [
+  {
+    title: "Chiffre d'affaires",
+    value: "0 €",
+    icon: DollarSign,
+  },
+  {
+    title: "Commandes",
+    value: "0",
+    icon: ShoppingBag,
+  },
+  {
+    title: "Produits",
+    value: "0",
+    icon: Package,
+  },
+  {
+    title: "Nora AI",
+    value: "En ligne",
+    icon: Bot,
+  },
+];
 
 export default function DashboardPage() {
   return (
     <AppLayout>
-      <div className="grid grid-cols-4 gap-6">
-        <div className="rounded-2xl bg-neutral-900 p-6">
-          <p className="text-sm text-neutral-400">
-            Chiffre d&apos;affaires
-          </p>
+      <div className="space-y-8">
+        <div>
+          <h1 className="text-4xl font-bold">
+            Dashboard
+          </h1>
 
-          <h2 className="mt-4 text-3xl font-bold">
-            0 €
-          </h2>
+          <p className="mt-2 text-neutral-400">
+            Bienvenue sur FastOS.
+          </p>
         </div>
 
-        <div className="rounded-2xl bg-neutral-900 p-6">
-          <p className="text-sm text-neutral-400">
-            Commandes
-          </p>
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {cards.map(({ title, value, icon: Icon }) => (
+            <div
+              key={title}
+              className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6 transition hover:border-orange-500"
+            >
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-neutral-400">
+                  {title}
+                </p>
 
-          <h2 className="mt-4 text-3xl font-bold">
-            0
-          </h2>
-        </div>
+                <Icon
+                  size={20}
+                  className="text-orange-500"
+                />
+              </div>
 
-        <div className="rounded-2xl bg-neutral-900 p-6">
-          <p className="text-sm text-neutral-400">
-            Produits
-          </p>
-
-          <h2 className="mt-4 text-3xl font-bold">
-            0
-          </h2>
-        </div>
-
-        <div className="rounded-2xl bg-neutral-900 p-6">
-          <p className="text-sm text-neutral-400">
-            Nora
-          </p>
-
-          <h2 className="mt-4 text-xl font-semibold">
-            Aucun appel aujourd&apos;hui
-          </h2>
+              <h2 className="mt-6 text-3xl font-bold">
+                {value}
+              </h2>
+            </div>
+          ))}
         </div>
       </div>
     </AppLayout>
