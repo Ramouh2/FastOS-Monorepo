@@ -9,11 +9,13 @@
     ".": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "dev": "tsc -w",
-    "check": "tsc --noEmit"
-  },
+  "build": "tsc -p tsconfig.json",
+  "dev": "tsc -w",
+  "check": "tsc --noEmit",
+  "test": "vitest"
+},
   "devDependencies": {
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^4.1.10"
   }
 }

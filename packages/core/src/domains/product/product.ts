@@ -20,7 +20,7 @@ export type ProductProps = {
 
 export class Product {
   private constructor(
-    private readonly props: ProductProps,
+    private props: ProductProps,
   ) {}
 
   static create(
@@ -41,7 +41,16 @@ export class Product {
       updatedAt: now,
     });
   }
-
+  update(input: {
+    name: string;
+    type: ProductType;
+    price: number;
+  }) {
+    this.props.name = input.name;
+    this.props.type = input.type;
+    this.props.price = input.price;
+    this.props.updatedAt = new Date();
+  }
   get id() {
     return this.props.id;
   }
