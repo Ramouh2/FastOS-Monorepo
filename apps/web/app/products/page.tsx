@@ -1,8 +1,8 @@
-import { getDemoProducts } from "../../lib/demo/products";
+import { listProducts } from "../../lib/products/list-products";
 import { AppLayout } from "../../components/layout/app-layout";
 
 export default async function ProductsPage() {
-  const products = await getDemoProducts();
+  const products = await listProducts();
 
   return (
     <AppLayout>
