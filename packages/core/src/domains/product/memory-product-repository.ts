@@ -11,4 +11,15 @@ export class MemoryProductRepository implements ProductRepository {
   async findById(id: string): Promise<Product | null> {
     return this.products.get(id) ?? null;
   }
+  async findAll(): Promise<Product[]> {
+  return [...this.products.values()];
+}
+
+async exists(id: string): Promise<boolean> {
+  return this.products.has(id);
+}
+
+async delete(id: string): Promise<void> {
+  this.products.delete(id);
+}
 }

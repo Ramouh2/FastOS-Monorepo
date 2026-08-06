@@ -1,3 +1,4 @@
+export * from "./application/list-products.js";
 export * from "./application/create-business.js";
 export * from "./application/create-product.js";
 

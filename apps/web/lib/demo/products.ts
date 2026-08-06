@@ -2,6 +2,7 @@ import {
   MemoryProductRepository,
   ProductService,
   CreateProduct,
+  ListProducts,
 } from "@fastos/core";
 
 const repository = new MemoryProductRepository();
@@ -9,7 +10,7 @@ const repository = new MemoryProductRepository();
 const createProduct = new CreateProduct(
   new ProductService(repository),
 );
-
+const listProducts = new ListProducts(repository);
 export async function getDemoProducts() {
   await createProduct.execute({
     id: "1",
@@ -27,8 +28,5 @@ export async function getDemoProducts() {
     price: 2.5,
   });
 
-  return [
-    await repository.findById("1"),
-    await repository.findById("2"),
-  ].filter(Boolean);
+  return listProducts.execute();
 }
