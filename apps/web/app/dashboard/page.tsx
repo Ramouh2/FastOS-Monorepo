@@ -33,15 +33,6 @@ export default function DashboardPage() {
   return (
     <AppLayout>
       <div className="space-y-8">
-        <div>
-          <h1 className="text-4xl font-bold">
-            Dashboard
-          </h1>
-
-          <p className="mt-2 text-neutral-400">
-            Bienvenue sur FastOS.
-          </p>
-        </div>
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {cards.map(({ title, value, icon: Icon }) => (
