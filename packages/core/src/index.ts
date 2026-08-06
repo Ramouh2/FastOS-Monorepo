@@ -10,3 +10,4 @@ export * from "./domains/product/memory-product-repository.js";
 export * from "./domains/business/business-service.js";
 export * from "./domains/business/business-repository.js";
 export * from "./domains/business/memory-business-repository.js";
+export * from "./application/delete-product.js";
