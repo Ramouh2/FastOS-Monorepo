@@ -1,3 +1,5 @@
+import { auth } from "../lib/auth/auth";
+import { getBusinessByUserId } from "../lib/repositories/prisma-business-repository";
 import { BusinessProvider } from "../lib/business/business-provider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -23,18 +25,23 @@ type RootLayoutProps = {
   children: ReactNode;
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: RootLayoutProps) {
+  const session = await auth();
+
+const business = session?.user?.id
+  ? await getBusinessByUserId(session.user.id)
+  : null;
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <BusinessProvider>
-          {children}
-        </BusinessProvider>
+        <BusinessProvider business={business!}>
+  {children}
+</BusinessProvider>
       </body>
     </html>
   );

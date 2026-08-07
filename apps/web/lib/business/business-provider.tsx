@@ -1,16 +1,19 @@
 "use client";
 
 import { ReactNode } from "react";
-import { BusinessContext } from "./business-context";
-import { demoBusiness } from "./demo-business";
+import { BusinessContext, Business } from "./business-context";
 
 type Props = {
   children: ReactNode;
+  business: Business;
 };
 
-export function BusinessProvider({ children }: Props) {
+export function BusinessProvider({
+  children,
+  business,
+}: Props) {
   return (
-    <BusinessContext.Provider value={demoBusiness}>
+    <BusinessContext.Provider value={business}>
       {children}
     </BusinessContext.Provider>
   );

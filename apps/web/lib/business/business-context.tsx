@@ -1,6 +1,15 @@
 "use client";
 
 import { createContext } from "react";
-import { demoBusiness } from "./demo-business";
 
-export const BusinessContext = createContext(demoBusiness);
+export type Business = {
+  id: string;
+  userId: string;
+  name: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export const BusinessContext =
+  createContext<Business | null>(null);

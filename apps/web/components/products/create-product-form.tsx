@@ -1,5 +1,6 @@
 "use client";
 
+import { useBusiness } from "../../lib/business/use-business";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createProductAction } from "../../app/products/actions";
@@ -7,13 +8,15 @@ import { createProductAction } from "../../app/products/actions";
 export function CreateProductForm() {
   const router = useRouter();
 
+  const business = useBusiness();
+  
   const [name, setName] = useState("");
 
   async function submit() {
     if (!name.trim()) return;
 
     await createProductAction({
-      businessId: "business-001",
+      businessId: business.id,
       name,
       type: "FOOD",
       price: 10,

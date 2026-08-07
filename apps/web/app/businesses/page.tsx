@@ -24,11 +24,22 @@ export default function BusinessesPage() {
           </h2>
 
           <div className="mt-6 space-y-2 text-neutral-300">
-            <p><strong>ID :</strong> {business.id}</p>
-            <p><strong>Type :</strong> {business.type}</p>
-            <p><strong>Adresse :</strong> {business.address}</p>
-            <p><strong>Devise :</strong> {business.currency}</p>
-            <p><strong>Fuseau :</strong> {business.timezone}</p>
+            <p>
+  <strong>ID :</strong> {business.id}
+</p>
+
+<p>
+  <strong>Statut :</strong> {business.status}
+</p>
+
+<p>
+  <strong>User ID :</strong> {business.userId}
+</p>
+
+<p>
+  <strong>Créé le :</strong>{" "}
+  {business.createdAt.toLocaleDateString()}
+</p>
           </div>
         </div>
       </div>
