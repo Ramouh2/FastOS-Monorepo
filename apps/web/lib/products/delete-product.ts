@@ -1,7 +1,7 @@
-import {
-  deleteProductUseCase,
-} from "./product-context";
+import { PrismaProductRepository } from "../repositories/prisma-product-repository";
+
+const repository = new PrismaProductRepository();
 
 export async function deleteProduct(id: string) {
-  return deleteProductUseCase.execute(id);
+  return repository.delete(id);
 }

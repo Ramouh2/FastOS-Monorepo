@@ -1,12 +1,19 @@
-import {
-  updateProductUseCase,
-} from "./product-context";
+import { prisma } from "../prisma/client";
 
 export async function updateProduct(input: {
   id: string;
   name: string;
-  type: "FOOD" | "DRINK" | "DESSERT";
+  type: string;
   price: number;
 }) {
-  return updateProductUseCase.execute(input);
+  return prisma.product.update({
+    where: {
+      id: input.id,
+    },
+    data: {
+      name: input.name,
+      type: input.type,
+      price: input.price,
+    },
+  });
 }

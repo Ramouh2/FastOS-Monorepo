@@ -3,6 +3,9 @@ packages:
   - "packages/*"
 
 allowBuilds:
+  '@prisma/client': false
   '@prisma/engines': true
+  bcrypt: false
+  better-sqlite3: false
   prisma: true
   unrs-resolver: true

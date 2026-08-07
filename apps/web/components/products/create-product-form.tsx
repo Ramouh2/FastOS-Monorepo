@@ -13,7 +13,6 @@ export function CreateProductForm() {
     if (!name.trim()) return;
 
     await createProductAction({
-      id: crypto.randomUUID(),
       businessId: "business-001",
       name,
       type: "FOOD",

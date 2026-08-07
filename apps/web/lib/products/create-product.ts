@@ -1,13 +1,15 @@
-import {
-  createProductUseCase,
-} from "./product-context";
+import { PrismaProductRepository } from "../repositories/prisma-product-repository";
+
+const repository = new PrismaProductRepository();
 
 export async function createProduct(input: {
-  id: string;
   businessId: string;
   name: string;
   type: "FOOD" | "DRINK" | "DESSERT";
   price: number;
 }) {
-  return createProductUseCase.execute(input);
+  return repository.create({
+    ...input,
+    status: "ACTIVE",
+  });
 }

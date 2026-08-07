@@ -1,10 +1,10 @@
 import { DeleteProductButton } from "../../components/products/delete-product-button";
 import { CreateProductForm } from "../../components/products/create-product-form";
-import { listProducts } from "../../lib/products/list-products";
+import { listProductsService } from "../../lib/services/product-service";
 import { AppLayout } from "../../components/layout/app-layout";
 
 export default async function ProductsPage() {
-  const products = await listProducts();
+  const products = await listProductsService();
 
   return (
     <AppLayout>
