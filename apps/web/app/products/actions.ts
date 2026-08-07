@@ -1,6 +1,7 @@
 "use server";
 
 import { createProduct } from "../../lib/products/create-product";
+import { deleteProduct } from "../../lib/products/delete-product";
 
 export async function createProductAction(input: {
   id: string;
@@ -10,4 +11,8 @@ export async function createProductAction(input: {
   price: number;
 }) {
   await createProduct(input);
+}
+
+export async function deleteProductAction(id: string) {
+  await deleteProduct(id);
 }

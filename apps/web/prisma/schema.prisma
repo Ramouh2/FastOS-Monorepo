@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Business {
+  id        String    @id
+  name      String
+  status    String
+  createdAt DateTime
+  updatedAt DateTime
+
+  products Product[]
+}
+
+model Product {
+  id         String   @id
+  businessId String
+
+  name       String
+  type       String
+  price      Float
+  status     String
+
+  createdAt  DateTime
+  updatedAt  DateTime
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId])
+}

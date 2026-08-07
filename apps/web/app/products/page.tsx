@@ -1,3 +1,4 @@
+import { DeleteProductButton } from "../../components/products/delete-product-button";
 import { CreateProductForm } from "../../components/products/create-product-form";
 import { listProducts } from "../../lib/products/list-products";
 import { AppLayout } from "../../components/layout/app-layout";
@@ -28,7 +29,9 @@ export default async function ProductsPage() {
               <th className="px-6 py-4 text-left">Nom</th>
               <th className="px-6 py-4 text-left">Catégorie</th>
               <th className="px-6 py-4 text-left">Prix</th>
-              <th className="px-6 py-4 text-left">Statut</th>
+              <th className="px-6 py-4 text-left">Statut</th><th className="px-6 py-4 text-left">
+  Actions
+</th>
             </tr>
           </thead>
 
@@ -55,6 +58,9 @@ export default async function ProductsPage() {
                     {product!.status}
                   </span>
                 </td>
+<td className="px-6 py-4">
+  <DeleteProductButton id={product!.id} />
+</td>
               </tr>
             ))}
           </tbody>
