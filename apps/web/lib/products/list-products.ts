@@ -1,17 +1,7 @@
 import {
-  MemoryProductRepository,
-  ProductService,
-  CreateProduct,
-  ListProducts,
-} from "@fastos/core";
-
-const repository = new MemoryProductRepository();
-
-const createProduct = new CreateProduct(
-  new ProductService(repository),
-);
-
-const listProductsUseCase = new ListProducts(repository);
+  createProductUseCase,
+  listProductsUseCase,
+} from "./product-context";
 
 let initialized = false;
 
@@ -19,7 +9,7 @@ export async function listProducts() {
   if (!initialized) {
     initialized = true;
 
-    await createProduct.execute({
+    await createProductUseCase.execute({
       id: "1",
       businessId: "business-001",
       name: "Cheeseburger",
@@ -27,7 +17,7 @@ export async function listProducts() {
       price: 12.5,
     });
 
-    await createProduct.execute({
+    await createProductUseCase.execute({
       id: "2",
       businessId: "business-001",
       name: "Coca-Cola",

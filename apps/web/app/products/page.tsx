@@ -1,3 +1,4 @@
+import { CreateProductForm } from "../../components/products/create-product-form";
 import { listProducts } from "../../lib/products/list-products";
 import { AppLayout } from "../../components/layout/app-layout";
 
@@ -17,9 +18,7 @@ export default async function ProductsPage() {
           </p>
         </div>
 
-        <button className="rounded-xl bg-orange-500 px-5 py-3 font-semibold text-white transition hover:bg-orange-600">
-          + Ajouter un produit
-        </button>
+        <CreateProductForm />
       </div>
 
       <div className="mt-8 overflow-hidden rounded-2xl border border-neutral-800">
