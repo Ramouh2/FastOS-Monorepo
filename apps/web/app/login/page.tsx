@@ -19,7 +19,9 @@ export default function LoginPage() {
       return;
     }
 
-    window.location.href = "/dashboard";
+    console.log("LOGIN RESULT:", result);
+
+window.location.href = "/dashboard";
   }
 
   return (
