@@ -1,7 +1,7 @@
 "use server";
 
-import { prisma } from "../../lib/prisma/client";
 import { auth } from "../../lib/auth/auth";
+import { createBusinessService } from "../../lib/services/create-business-service";
 
 export async function createBusinessAction(name: string) {
   const session = await auth();
@@ -10,13 +10,8 @@ export async function createBusinessAction(name: string) {
     throw new Error("Utilisateur non connecté");
   }
 
-  const business = await prisma.business.create({
-    data: {
-      name,
-      status: "ACTIVE",
-      userId: session.user.id,
-    },
+  return createBusinessService({
+    userId: session.user.id,
+    name,
   });
-
-  return business;
 }
