@@ -1,5 +1,8 @@
 import { auth } from "@/lib/auth/auth";
 
+import { TodayOrdersCard } from "@/components/dashboard/today-orders-card";
+import { AverageOrderCard } from "@/components/dashboard/average-order-card";
+
 import { getCurrentBusiness } from "@/lib/use-cases/business/get-current-business";
 import { getDashboardStats } from "@/lib/use-cases/dashboard/get-dashboard-stats";
 
@@ -39,21 +42,15 @@ export default async function DashboardPage() {
 
 
   const stats =
-    business
-
-      ? await getDashboardStats(
-          business.id
-        )
-
-      : {
-
-          products: 0,
-
-          orders: 0,
-
-          revenue: 0,
-
-        };
+  business
+    ? await getDashboardStats(business.id)
+    : {
+        products: 0,
+        orders: 0,
+        revenue: 0,
+        todayOrders: 0,
+        averageOrderValue: 0,
+      };
 
 
 
@@ -219,6 +216,13 @@ export default async function DashboardPage() {
           <ProductsCard
             count={stats.products}
           />
+          <TodayOrdersCard
+  count={stats.todayOrders}
+/>
+
+<AverageOrderCard
+  amount={stats.averageOrderValue}
+/>
 
 
 
