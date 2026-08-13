@@ -1,4 +1,6 @@
 import { auth } from "@/lib/auth/auth";
+import { ActivityFeed } from "@/components/dashboard/widgets/activity-feed";
+
 
 import { TodayOrdersCard } from "@/components/dashboard/today-orders-card";
 import { AverageOrderCard } from "@/components/dashboard/average-order-card";
@@ -50,6 +52,7 @@ export default async function DashboardPage() {
         revenue: 0,
         todayOrders: 0,
         averageOrderValue: 0,
+        recentOrders: [],
       };
 
 
@@ -238,10 +241,17 @@ export default async function DashboardPage() {
 
 
 
-        {/* AI STATUS */}
+        {/* ACTIVITY */}
+
+<ActivityFeed
+  orders={stats.recentOrders}
+/>
 
 
-        <AIStatus />
+
+{/* AI STATUS */}
+
+<AIStatus />
 
 
 
