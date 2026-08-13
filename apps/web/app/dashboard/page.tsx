@@ -1,4 +1,6 @@
 import { auth } from "@/lib/auth/auth";
+import { RevenueChart } from "@/components/dashboard/widgets/revenue-chart";
+
 import { ActivityFeed } from "@/components/dashboard/widgets/activity-feed";
 
 
@@ -53,6 +55,7 @@ export default async function DashboardPage() {
         todayOrders: 0,
         averageOrderValue: 0,
         recentOrders: [],
+        revenueHistory: [],
       };
 
 
@@ -245,6 +248,14 @@ export default async function DashboardPage() {
 
 <ActivityFeed
   orders={stats.recentOrders}
+/>
+
+
+
+{/* REVENUE CHART */}
+
+<RevenueChart
+  data={stats.revenueHistory}
 />
 
 

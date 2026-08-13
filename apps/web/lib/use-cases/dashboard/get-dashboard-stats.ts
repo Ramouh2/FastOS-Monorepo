@@ -15,35 +15,49 @@ export async function getDashboardStats(
   businessId: string
 ) {
 
+
   const [
     products,
     orders,
     revenue,
     todayOrders,
     recentOrders,
+    revenueHistory,
   ] = await Promise.all([
+
 
     productRepository.count(
       businessId
     ),
 
+
     orderRepository.count(
       businessId
     ),
+
 
     orderRepository.revenue(
       businessId
     ),
 
+
     orderRepository.todayCount(
       businessId
     ),
+
 
     orderRepository.findAll(
       businessId
     ),
 
+
+    orderRepository.revenueLast7Days(
+      businessId
+    ),
+
+
   ]);
+
 
 
   const averageOrderValue =
@@ -55,18 +69,30 @@ export async function getDashboardStats(
 
   return {
 
+
     products,
+
 
     orders,
 
+
     revenue,
+
 
     todayOrders,
 
+
     averageOrderValue,
 
-    recentOrders: recentOrders.slice(0, 5),
+
+    recentOrders:
+      recentOrders.slice(0, 5),
+
+
+    revenueHistory,
+
 
   };
+
 
 }
