@@ -5,7 +5,7 @@ import { BusinessContext, Business } from "./business-context";
 
 type Props = {
   children: ReactNode;
-  business: Business;
+  business: Business | null;
 };
 
 export function BusinessProvider({

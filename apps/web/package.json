@@ -4,20 +4,28 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "create-templates": "tsx prisma/scripts/create-templates.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.3",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@fastos/core": "workspace:*",
     "@prisma/client": "6.19.3",
+    "@tanstack/react-query": "^5.101.4",
     "bcryptjs": "^3.0.3",
+    "framer-motion": "^13.0.0",
     "lucide-react": "^0.542.0",
     "next": "16.3.0",
     "next-auth": "5.0.0-beta.32",
     "prisma": "6.19.3",
     "react": "19.2.8",
+    "react-colorful": "^5.8.0",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
@@ -29,6 +37,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.11",
     "typescript": "^5"
   }
 }

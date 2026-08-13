@@ -10,11 +10,13 @@ export default function Home() {
             FASTOS
           </p>
 
+
           <h1 className="max-w-4xl text-6xl font-bold leading-tight">
             The AI Operating System
             <br />
             for Restaurants
           </h1>
+
 
           <p className="mt-8 max-w-2xl text-xl text-neutral-400">
             FastOS centralise votre restaurant dans une seule
@@ -22,11 +24,26 @@ export default function Home() {
             statistiques et intelligence artificielle.
           </p>
 
-          <div className="mt-12 flex gap-4">
-            <Button>Découvrir FastOS</Button>
 
-            <Button>Voir la démo</Button>
+
+          <div className="mt-12 flex gap-4">
+
+            <a href="/register">
+              <Button>
+                Découvrir FastOS
+              </Button>
+            </a>
+
+
+            <a href="/dashboard">
+              <Button>
+                Voir la démo
+              </Button>
+            </a>
+
           </div>
+
+
         </section>
       </Container>
     </main>

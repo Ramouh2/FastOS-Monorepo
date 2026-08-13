@@ -7,6 +7,7 @@ export async function registerService(
   password: string,
 ) {
   return prisma.$transaction(async (tx) => {
+
     const existingUser = await tx.user.findUnique({
       where: { email },
     });
@@ -15,7 +16,9 @@ export async function registerService(
       throw new Error("Utilisateur déjà existant.");
     }
 
+
     const hashedPassword = await bcrypt.hash(password, 10);
+
 
     const user = await tx.user.create({
       data: {
@@ -25,17 +28,48 @@ export async function registerService(
       },
     });
 
+
     const business = await tx.business.create({
       data: {
-        id: crypto.randomUUID(),
+
         userId: user.id,
+
         name: `${name}'s Restaurant`,
-        status: "ACTIVE",
-        createdAt: new Date(),
-        updatedAt: new Date(),
+
+        status: "ONBOARDING",
+
+
+        aiProfile: {
+          create: {
+            businessType: "restaurant",
+            style: "moderne",
+            audience: "clients",
+            location: "",
+          },
+        },
+
+
+        aiConversation: {
+          create: {
+            stage: "DISCOVERY",
+            readyToBuild: false,
+          },
+        },
+
       },
+
+      include: {
+        aiProfile: true,
+        aiConversation: true,
+      },
+
     });
 
-    return { user, business };
+
+    return {
+      user,
+      business,
+    };
+
   });
 }

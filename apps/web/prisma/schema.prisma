@@ -13,10 +13,10 @@ model User {
   email    String  @unique
   password String
 
-  businesses Business[]
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  businesses Business[]
 }
 
 model Business {
@@ -34,7 +34,13 @@ model Business {
 
   products Product[]
 
+  orders Order[]
+
   website Website?
+
+  aiProfile BusinessAIProfile?
+
+  aiConversation AIConversation?
 }
 
 model Product {
@@ -42,9 +48,15 @@ model Product {
 
   businessId String
 
-  name   String
-  type   String
-  price  Float
+  name        String
+  description String?
+
+  type String
+
+  price Float
+
+  image String?
+
   status String
 
   createdAt DateTime @default(now())
@@ -60,21 +72,81 @@ model Website {
 
   businessId String @unique
 
+  templateId String?
+
   title String
-  slug  String @unique
+
+  slug String @unique
+
+  config Json?
 
   published Boolean @default(false)
 
-  primaryColor   String @default("#f97316")
-secondaryColor String @default("#171717")
-accentColor    String @default("#ffffff")
+  primaryColor String @default("#f97316")
+
+  secondaryColor String @default("#171717")
+
+  accentColor String @default("#ffffff")
+
+  fontFamily String? @default("Inter")
+
+  borderRadius Int @default(16)
 
   createdAt DateTime @default(now())
+
   updatedAt DateTime @updatedAt
 
   business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
 
+  template WebsiteTemplate? @relation(fields: [templateId], references: [id])
+
+  pages WebsitePage[]
+
   sections WebsiteSection[]
+
+  settings ThemeSetting[]
+}
+
+model WebsiteTemplate {
+  id String @id @default(cuid())
+
+  name String
+
+  category String
+
+  preview String?
+
+  settings Json
+
+  createdAt DateTime @default(now())
+
+  websites Website[]
+}
+
+model WebsitePage {
+  id String @id @default(cuid())
+
+  websiteId String
+
+  name String
+
+  slug String
+
+  title String
+
+  position Int @default(1)
+
+  published Boolean @default(true)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  website Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  sections WebsiteSection[]
+
+  @@index([websiteId])
 }
 
 model WebsiteSection {
@@ -82,17 +154,114 @@ model WebsiteSection {
 
   websiteId String
 
-  type    String
-  title   String
+  pageId String?
+
+  type String
+
+  title String
+
   content String
 
   position Int
-  visible  Boolean @default(true)
+
+  visible Boolean @default(true)
 
   createdAt DateTime @default(now())
+
   updatedAt DateTime @updatedAt
 
   website Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 
+  page WebsitePage? @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  blocks WebsiteBlock[]
+
   @@index([websiteId])
+  @@index([pageId])
+}
+
+model WebsiteBlock {
+  id String @id @default(cuid())
+
+  sectionId String
+
+  type String
+
+  position Int
+
+  content Json
+
+  settings Json
+
+  section WebsiteSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  @@index([sectionId])
+}
+
+model ThemeSetting {
+  id String @id @default(cuid())
+
+  websiteId String
+
+  key String
+
+  value Json
+
+  website Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([websiteId])
+}
+
+model BusinessAIProfile {
+  id String @id @default(cuid())
+
+  businessId String @unique
+
+  businessType String?
+
+  location String?
+
+  audience String?
+
+  style String?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+}
+
+model AIConversation {
+  id String @id @default(cuid())
+
+  businessId String @unique
+
+  stage String @default("DISCOVERY")
+
+  readyToBuild Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id String @id @default(cuid())
+
+  businessId String
+
+  total Float
+
+  status String @default("PENDING")
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId])
 }

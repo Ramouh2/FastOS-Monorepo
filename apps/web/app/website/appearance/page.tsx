@@ -1,36 +1,112 @@
 import { auth } from "@/lib/auth/auth";
-import { prisma } from "@/lib/prisma/client";
+import { getCurrentBusiness } from "@/lib/use-cases/business/get-current-business";
+import { getWebsite } from "@/lib/use-cases/website/get-website";
+
+import ThemeEditor from "@/components/ThemeEditor";
+
+
 
 export default async function WebsiteAppearancePage() {
+
+
   const session = await auth();
 
-  const business = await prisma.business.findFirst({
-    where: {
-      userId: session?.user?.id,
-    },
-    include: {
-      website: true,
-    },
-  });
+
+
+  const business =
+    session?.user?.id
+
+      ? await getCurrentBusiness(
+          session.user.id
+        )
+
+      : null;
+
+
+
+  if (!business) {
+
+    return (
+
+      <main className="min-h-screen bg-neutral-950 p-8 text-white">
+
+        Restaurant introuvable
+
+      </main>
+
+    );
+
+  }
+
+
+
+
+
+  const website =
+    await getWebsite(
+      business.id
+    );
+
+
+
+
+
+  if (!website) {
+
+    return (
+
+      <main className="min-h-screen bg-neutral-950 p-8 text-white">
+
+        Website introuvable
+
+      </main>
+
+    );
+
+  }
+
+
+
+
+
 
   return (
+
     <main className="min-h-screen bg-neutral-950 p-8 text-white">
 
-      <h1 className="text-4xl font-bold">
+
+      <h1 className="mb-10 text-4xl font-bold">
+
         Apparence du site
+
       </h1>
 
-      <pre className="mt-8 rounded-xl bg-neutral-900 p-6">
-        {JSON.stringify(
-          {
-            session,
-            business,
-          },
-          null,
-          2
-        )}
-      </pre>
+
+
+
+
+      <ThemeEditor
+
+        primaryColor={
+          website.primaryColor
+        }
+
+
+        secondaryColor={
+          website.secondaryColor
+        }
+
+
+        accentColor={
+          website.accentColor
+        }
+
+      />
+
+
 
     </main>
+
   );
+
 }

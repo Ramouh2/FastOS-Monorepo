@@ -15,7 +15,44 @@ export class PrismaUserRepository {
     password: string;
   }) {
     return prisma.user.create({
-      data,
+      data: {
+        ...data,
+
+        businesses: {
+          create: {
+            name: data.name
+              ? `${data.name} Restaurant`
+              : "Mon restaurant",
+
+            status: "ONBOARDING",
+
+            aiProfile: {
+              create: {
+                businessType: "",
+                location: "",
+                audience: "",
+                style: "",
+              },
+            },
+
+            aiConversation: {
+              create: {
+                stage: "DISCOVERY",
+                readyToBuild: false,
+              },
+            },
+          },
+        },
+      },
+
+      include: {
+        businesses: {
+          include: {
+            aiProfile: true,
+            aiConversation: true,
+          },
+        },
+      },
     });
   }
 }

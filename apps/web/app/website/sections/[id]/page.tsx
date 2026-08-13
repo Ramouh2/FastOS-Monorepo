@@ -1,6 +1,5 @@
 import SaveButton from "@/components/SaveButton";
-import { prisma } from "@/lib/prisma/client";
-import { notFound, redirect } from "next/navigation";
+import { getSection } from "@/lib/use-cases/website/get-section";import { notFound, redirect } from "next/navigation";
 import { updateSection } from "../actions/update-section";
 type Props = {
   params: Promise<{
@@ -16,11 +15,7 @@ export default async function SectionEditorPage({
 
 
   const section =
-    await prisma.websiteSection.findUnique({
-      where: {
-        id,
-      },
-    });
+    await getSection(id);
 
 
   if (!section) {
