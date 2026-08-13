@@ -7,7 +7,19 @@ import { Plus } from "lucide-react";
 import { createProductAction } from "../../app/products/actions";
 
 
-export function CreateProductForm() {
+type Category = {
+  id: string;
+  name: string;
+};
+
+
+
+export function CreateProductForm({
+  categories,
+}: {
+  categories: Category[];
+}) {
+
 
   const router = useRouter();
 
@@ -16,6 +28,10 @@ export function CreateProductForm() {
 
   const [name, setName] = useState("");
 
+  const [price, setPrice] = useState("10");
+
+  const [categoryId, setCategoryId] = useState("");
+
   const [loading, setLoading] = useState(false);
 
 
@@ -23,36 +39,22 @@ export function CreateProductForm() {
   if (!business) {
 
     return (
-
       <div className="text-slate-400">
-
         Aucun restaurant configuré.
-
       </div>
-
     );
 
   }
 
 
 
-  const businessId = business.id;
-
-
-
   async function submit() {
 
 
-    console.log("CLICK AJOUTER");
+    if (!name.trim()) return;
 
 
-    if (!name.trim()) {
-
-      console.log("Nom vide");
-
-      return;
-
-    }
+    if (!business) return;
 
 
 
@@ -65,33 +67,35 @@ export function CreateProductForm() {
 
       await createProductAction({
 
-        businessId,
+        businessId: business.id,
 
         name,
 
+        categoryId: categoryId || undefined,
+
         type: "FOOD",
 
-        price: 10,
+        price: Number(price),
 
       });
 
 
 
-      console.log("PRODUIT CRÉÉ");
-
-
-
       setName("");
+
+      setPrice("10");
+
+      setCategoryId("");
 
       router.refresh();
 
 
 
-    } catch (error) {
+    } catch(error) {
 
 
       console.error(
-        "Erreur création produit :",
+        "Erreur création produit",
         error
       );
 
@@ -104,13 +108,13 @@ export function CreateProductForm() {
 
     }
 
-
   }
 
 
 
-  return (
 
+
+  return (
 
     <div className="flex gap-3">
 
@@ -118,33 +122,17 @@ export function CreateProductForm() {
       <input
 
         className="
-        w-64
-
+        w-48
         rounded-xl
-
         border
         border-slate-800
-
         bg-slate-950
-
         px-4
         py-3
-
         text-white
-
-        placeholder:text-slate-500
-
-        outline-none
-
-        transition
-
-        focus:border-blue-500
-
-        focus:ring-2
-        focus:ring-blue-500/20
         "
 
-        placeholder="Nom du produit"
+        placeholder="Nom produit"
 
         value={name}
 
@@ -154,72 +142,101 @@ export function CreateProductForm() {
 
 
 
-      <button
-
-
-        onClick={submit}
-
-
-        disabled={loading}
-
+      <input
 
         className="
-
-        flex
-
-        items-center
-
-        gap-2
-
-
+        w-28
         rounded-xl
-
-
-        bg-blue-500
-
-
-        px-5
-
+        border
+        border-slate-800
+        bg-slate-950
+        px-4
         py-3
-
-
-        font-semibold
-
-
         text-white
-
-
-        transition-all
-
-
-        hover:bg-blue-400
-
-
-        hover:shadow-[0_0_25px_rgba(59,130,246,0.35)]
-
-
-        active:scale-95
-
-
-        disabled:opacity-50
-
         "
 
+        placeholder="Prix"
+
+        value={price}
+
+        onChange={(e)=>setPrice(e.target.value)}
+
+      />
+
+
+
+      <select
+
+        className="
+        w-48
+        rounded-xl
+        border
+        border-slate-800
+        bg-slate-950
+        px-4
+        py-3
+        text-white
+        "
+
+        value={categoryId}
+
+        onChange={(e)=>setCategoryId(e.target.value)}
 
       >
 
+        <option value="">
+          Sans catégorie
+        </option>
+
+
+        {categories.map((category)=>(
+
+          <option
+            key={category.id}
+            value={category.id}
+          >
+
+            {category.name}
+
+          </option>
+
+        ))}
+
+
+      </select>
+
+
+
+
+
+      <button
+
+        onClick={submit}
+
+        disabled={loading}
+
+        className="
+        flex
+        items-center
+        gap-2
+        rounded-xl
+        bg-blue-500
+        px-5
+        py-3
+        font-semibold
+        text-white
+        "
+
+      >
 
         <Plus size={18}/>
 
-
         {loading ? "Ajout..." : "Ajouter"}
-
 
       </button>
 
 
     </div>
-
 
   );
 

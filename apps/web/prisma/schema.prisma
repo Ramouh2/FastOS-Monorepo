@@ -34,6 +34,8 @@ model Business {
 
   products Product[]
 
+  categories Category[]
+
   orders Order[]
 
   website Website?
@@ -43,12 +45,35 @@ model Business {
   aiConversation AIConversation?
 }
 
+model Category {
+  id String @id @default(cuid())
+
+  businessId String
+
+  name String
+
+  position Int @default(0)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  products Product[]
+
+  @@index([businessId])
+}
+
 model Product {
   id String @id @default(cuid())
 
   businessId String
 
-  name        String
+  categoryId String?
+
+  name String
+
   description String?
 
   type String
@@ -60,11 +85,15 @@ model Product {
   status String
 
   createdAt DateTime @default(now())
+
   updatedAt DateTime @updatedAt
 
   business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
 
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
   @@index([businessId])
+  @@index([categoryId])
 }
 
 model Website {

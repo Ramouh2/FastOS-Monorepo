@@ -7,11 +7,9 @@ export class PrismaProductRepository {
   async count(businessId: string) {
 
     return prisma.product.count({
-
       where: {
         businessId,
       },
-
     });
 
   }
@@ -21,20 +19,26 @@ export class PrismaProductRepository {
   async countByBusinessId(businessId: string) {
 
     return prisma.product.count({
-
       where: {
         businessId,
       },
-
     });
 
   }
 
 
 
-  async findAll() {
+  async findAll(businessId: string) {
 
     return prisma.product.findMany({
+
+      where: {
+        businessId,
+      },
+
+      include: {
+        category: true,
+      },
 
       orderBy: {
         createdAt: "desc",
@@ -49,16 +53,29 @@ export class PrismaProductRepository {
   async create(data: {
 
     businessId: string;
+
+    categoryId?: string;
+
     name: string;
+
+    description?: string;
+
     type: string;
+
     price: number;
+
     status: string;
 
   }) {
 
+
     return prisma.product.create({
 
       data,
+
+      include: {
+        category: true,
+      },
 
     });
 
