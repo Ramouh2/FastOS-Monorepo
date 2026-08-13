@@ -9,18 +9,18 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
 
   async function submit() {
-  try {
-    await registerUser(name, email, password);
+    try {
+      await registerUser(name, email, password);
 
-    window.location.href = "/dashboard";
-  } catch (error) {
-    alert(
-      error instanceof Error
-        ? error.message
-        : "Une erreur est survenue.",
-    );
+      window.location.href = "/onboarding";
+    } catch (error) {
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Une erreur est survenue.",
+      );
+    }
   }
-}
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-neutral-950">

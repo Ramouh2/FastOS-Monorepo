@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "../../lib/auth/auth";
-import { createBusinessService } from "../../lib/services/create-business-service";
+import { updateOnboardingBusiness } from "../../lib/services/update-onboarding-business";
 
 export async function createBusinessAction(name: string) {
   const session = await auth();
@@ -10,7 +10,7 @@ export async function createBusinessAction(name: string) {
     throw new Error("Utilisateur non connecté");
   }
 
-  return createBusinessService({
+  return updateOnboardingBusiness({
     userId: session.user.id,
     name,
   });
