@@ -9,7 +9,9 @@ export async function registerService(
   return prisma.$transaction(async (tx) => {
 
     const existingUser = await tx.user.findUnique({
-      where: { email },
+      where: {
+        email,
+      },
     });
 
     if (existingUser) {
@@ -17,7 +19,9 @@ export async function registerService(
     }
 
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword =
+      await bcrypt.hash(password, 10);
+
 
 
     const user = await tx.user.create({
@@ -27,6 +31,7 @@ export async function registerService(
         password: hashedPassword,
       },
     });
+
 
 
     const business = await tx.business.create({
@@ -64,6 +69,7 @@ export async function registerService(
       },
 
     });
+
 
 
     return {
