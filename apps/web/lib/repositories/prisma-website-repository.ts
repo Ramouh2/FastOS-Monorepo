@@ -35,32 +35,57 @@ export class PrismaWebsiteRepository {
 
       include: {
 
-        sections: {
+  business: {
 
-          where: {
+    include: {
 
-            visible: true,
+      products: {
 
-          },
+        include: {
 
-          orderBy: {
-
-            position: "asc",
-
-          },
-
-          include: {
-
-            blocks: true,
-
-          },
+          category: true,
 
         },
 
+        orderBy: {
 
-        template: true,
+          createdAt: "asc",
+
+        },
 
       },
+
+    },
+
+  },
+
+
+  sections: {
+
+    where: {
+
+      visible: true,
+
+    },
+
+    orderBy: {
+
+      position: "asc",
+
+    },
+
+    include: {
+
+      blocks: true,
+
+    },
+
+  },
+
+
+  template: true,
+
+},
 
     });
 

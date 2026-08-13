@@ -1,5 +1,6 @@
 import { getPublicWebsite } from "@/lib/use-cases/website/get-public-website";
 import { notFound } from "next/navigation";
+import { MenuSection } from "@/components/website/sections/menu-section";
 
 
 export default async function PublicSitePage({
@@ -22,13 +23,10 @@ export default async function PublicSitePage({
 
 
 
-
   const website =
     await getPublicWebsite(
       slug
     );
-
-
 
 
 
@@ -40,19 +38,15 @@ export default async function PublicSitePage({
 
 
 
-
-
   return (
 
     <main
 
       style={{
 
-        background:
-          website.secondaryColor,
+        background: website.secondaryColor,
 
-        color:
-          website.accentColor,
+        color: website.accentColor,
 
         minHeight: "100vh",
 
@@ -68,8 +62,7 @@ export default async function PublicSitePage({
 
         style={{
 
-          color:
-            website.primaryColor,
+          color: website.primaryColor,
 
           fontSize: "48px",
 
@@ -84,49 +77,75 @@ export default async function PublicSitePage({
 
 
 
-
       {
-        website.sections.map(section => (
-
-          <section
-
-            key={section.id}
-
-            style={{
-
-              padding: "30px",
-
-              marginTop: "20px",
-
-              borderRadius: "20px",
-
-              background:
-                "rgba(255,255,255,0.05)",
-
-            }}
-
-          >
+        website.sections.map(section => {
 
 
-            <h2>
+          if (section.type === "MENU") {
 
-              {section.title}
 
-            </h2>
+            return (
+
+              <MenuSection
+
+                key={section.id}
+
+                products={
+                  website.business.products
+                }
+
+              />
+
+            );
+
+          }
 
 
 
-            <p>
-
-              {section.content}
-
-            </p>
 
 
+          return (
 
-          </section>
+            <section
 
-        ))
+              key={section.id}
+
+              style={{
+
+                padding:"30px",
+
+                marginTop:"20px",
+
+                borderRadius:"20px",
+
+                background:"rgba(255,255,255,0.05)",
+
+              }}
+
+            >
+
+
+              <h2>
+
+                {section.title}
+
+              </h2>
+
+
+
+              <p>
+
+                {section.content}
+
+              </p>
+
+
+            </section>
+
+          );
+
+
+        })
       }
 
 
